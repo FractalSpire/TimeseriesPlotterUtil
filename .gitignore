@@ -169,3 +169,4 @@ cython_debug/
 run.bat
 /data/
 /logs/
+/output/
