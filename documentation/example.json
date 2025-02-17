@@ -1,0 +1,22 @@
+{
+  "title": "JSON example file result",
+  "xlabel": "X-Label",
+  "ylabel": "Y-Label",
+  "data": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "stepsize": "custom",
+  "steps": [
+    0,
+    0.5,
+    1,
+    1.5,
+    2,
+    2.5
+  ]
+}
