@@ -8,6 +8,8 @@ import ttkbootstrap as tb
 from logging.handlers import RotatingFileHandler
 from ttkbootstrap.dialogs import Messagebox
 
+from logic.plotter import Plotter
+
 LOG_FILE = "./logs/app.log"  # Main app log location
 MAX_LOG_SIZE = 1 * 1024 * 1024  # Limit to 1 MB
 
@@ -52,6 +54,18 @@ def setup_logger(log_file):
     return logger
 
 
+def get_file_type(file_name):
+    _, ext = os.path.splitext(file_name)
+    ext = ext.lower()
+
+    if ext == ".csv":
+        return "csv"
+    elif ext == ".json":
+        return "json"
+    else:
+        return None
+
+
 class Main:
     def __init__(self):
         # set up application logger
@@ -77,6 +91,16 @@ class Main:
         if files:
             selected_file = self.choose_file(files)
             self.logger.info(f"Selected file: {selected_file}")
+
+            if not selected_file:
+                Messagebox.show_warning("Invalid file or no file selected.")
+                quit(0)
+
+            plotter = Plotter(selected_file, get_file_type(selected_file), self.logger)
+            plotter.load_data()
+            plotter.plot()
+
+
 
     def check_folders(self):
         """Ensure all folders required by the program exist."""
